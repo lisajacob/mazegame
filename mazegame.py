@@ -4,7 +4,7 @@ import numpy as np
 import pygame
 
 class MazeGameEnv(gym.Env):
-    def __init__(self, render_mode: Optional[str] = None, maze):
+    def __init__(self, maze, render_mode: Optional[str] = None):
         super(MazeGameEnv, self).__init__()
         self.maze = np.array(maze)  # Maze represented as a 2D numpy array
         self.start_pos = np.where(self.maze == 'S')  # Starting position
