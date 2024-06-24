@@ -4,8 +4,8 @@ import numpy as np
 import pygame
 
 class MazeGameEnv(gym.Env):
-    def __init__(self, render_mode, maze):
-        super(MazeGameEnv, render_mode, self).__init__()
+    def __init__(self, maze):
+        super(MazeGameEnv, self).__init__()
         self.maze = np.array(maze)  # Maze represented as a 2D numpy array
         self.start_pos = np.where(self.maze == 'S')  # Starting position
         self.goal_pos = np.where(self.maze == 'G')  # Goal position
@@ -67,8 +67,17 @@ class MazeGameEnv(gym.Env):
           return False
       return True
 
-    def render(self):
-      # Clear the screen
+    def render(self, mode = "human"):
+
+    def render(self, mode="human"):
+        assert mode in ["human", "rgb_array"], "Invalid mode, must be either \"human\" or \"rgb_array\""
+        if mode == "human":
+            return self.canvas
+    
+        elif mode == "rgb_array":
+            return self.canvas
+      
+    # Clear the screen
       self.screen.fill((255, 255, 255))
     
       # Draw env elements one cell at a time
