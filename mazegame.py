@@ -75,12 +75,12 @@ class MazeGameEnv(gym.Env):
         elif mode == "rgb_array":
             return self.canvas
       
-    # Clear the screen
-      self.screen.fill((255, 255, 255))
+        # Clear the screen
+        self.screen.fill((255, 255, 255))
     
-      # Draw env elements one cell at a time
-      for row in range(self.num_rows):
-          for col in range(self.num_cols):
+          # Draw env elements one cell at a time
+          for row in range(self.num_rows):
+              for col in range(self.num_cols):
               cell_left = col * self.cell_size
               cell_top = row * self.cell_size
     
@@ -99,4 +99,4 @@ class MazeGameEnv(gym.Env):
               if np.array_equal(np.array(self.current_pos), np.array([row, col]).reshape(-1,1)):  # Agent position
                   pygame.draw.rect(self.screen, (0, 0, 255), (cell_left, cell_top, self.cell_size, self.cell_size))
     
-      pygame.display.update()  # Update the display
+          pygame.display.update()  # Update the display
