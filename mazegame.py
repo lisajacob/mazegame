@@ -16,7 +16,7 @@ class MazeGameEnv(gym.Env):
 
         # 4 possible actions: 0=up, 1=down, 2=left, 3=right
         self.action_space = spaces.Discrete(4)
-
+        self.clock = pygame.time.Clock()
         # Observation space is grid of size:rows x columns
         self.observation_space = spaces.Tuple((spaces.Discrete(self.num_rows), spaces.Discrete(self.num_cols)))
 
@@ -105,5 +105,14 @@ class MazeGameEnv(gym.Env):
     
             if np.array_equal(np.array(self.current_pos), np.array([row, col]).reshape(-1,1)):  # Agent position
                 pygame.draw.rect(self.screen, (0, 0, 255), (cell_left, cell_top, self.cell_size, self.cell_size))
-    
+
+            if self.render_mode == "human":
+                pygame.event.pump()
+                self.clock.tick(self.metadata["render_fps"])
+                pygame.display.flip()
+
+            elif self.render_mode == "rgb_array":
+                return np.transpose(
+                np.array(pygame.surfarray.pixels3d(self.screen)), axes=(1, 0, 2)
+                )
           pygame.display.update()  # Update the display
