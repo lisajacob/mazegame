@@ -67,8 +67,6 @@ class MazeGameEnv(gym.Env):
           return False
       return True
 
-    def render(self, mode = "human"):
-
     def render(self, mode="human"):
         assert mode in ["human", "rgb_array"], "Invalid mode, must be either \"human\" or \"rgb_array\""
         if mode == "human":
