@@ -4,13 +4,14 @@ import numpy as np
 import pygame
 
 class MazeGameEnv(gym.Env):
-    def __init__(self, maze):
+    def __init__(self, render_mode: Optional[str] = None, maze):
         super(MazeGameEnv, self).__init__()
         self.maze = np.array(maze)  # Maze represented as a 2D numpy array
         self.start_pos = np.where(self.maze == 'S')  # Starting position
         self.goal_pos = np.where(self.maze == 'G')  # Goal position
         self.current_pos = self.start_pos #starting position is current position of agent
         self.num_rows, self.num_cols = self.maze.shape
+        self.render_mode = render_mode
 
         # 4 possible actions: 0=up, 1=down, 2=left, 3=right
         self.action_space = spaces.Discrete(4)
@@ -69,11 +70,16 @@ class MazeGameEnv(gym.Env):
 
     def render(self, mode="human"):
         assert mode in ["human", "rgb_array"], "Invalid mode, must be either \"human\" or \"rgb_array\""
-        if mode == "human":
-            return self.canvas
-    
-        elif mode == "rgb_array":
-            return self.canvas
+
+        if self.screen is None:
+            pygame.init()
+            if self.render_mode == "human":
+                pygame.display.init()
+                self.screen = pygame.display.set_mode(
+                    (800, 600)
+                )
+            else:  # mode == "rgb_array"
+                self.screen = pygame.Surface((800, 600))
       
         # Clear the screen
         self.screen.fill((255, 255, 255))
