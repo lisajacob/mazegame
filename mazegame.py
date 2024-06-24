@@ -79,24 +79,24 @@ class MazeGameEnv(gym.Env):
         self.screen.fill((255, 255, 255))
     
           # Draw env elements one cell at a time
-          for row in range(self.num_rows):
-              for col in range(self.num_cols):
-              cell_left = col * self.cell_size
-              cell_top = row * self.cell_size
+        for row in range(self.num_rows):
+          for col in range(self.num_cols):
+            cell_left = col * self.cell_size
+            cell_top = row * self.cell_size
     
-              try:
-                  print(np.array(self.current_pos)==np.array([row,col]).reshape(-1,1))
-              except Exception as e:
-                  print('Initial state')
+            try:
+                print(np.array(self.current_pos)==np.array([row,col]).reshape(-1,1))
+            except Exception as e:
+                print('Initial state')
     
-              if self.maze[row, col] == '#':  # Obstacle
-                  pygame.draw.rect(self.screen, (0, 0, 0), (cell_left, cell_top, self.cell_size, self.cell_size))
-              elif self.maze[row, col] == 'S':  # Starting position
-                  pygame.draw.rect(self.screen, (0, 255, 0), (cell_left, cell_top, self.cell_size, self.cell_size))
-              elif self.maze[row, col] == 'G':  # Goal position
-                  pygame.draw.rect(self.screen, (255, 0, 0), (cell_left, cell_top, self.cell_size, self.cell_size))
+            if self.maze[row, col] == '#':  # Obstacle
+                pygame.draw.rect(self.screen, (0, 0, 0), (cell_left, cell_top, self.cell_size, self.cell_size))
+            elif self.maze[row, col] == 'S':  # Starting position
+                pygame.draw.rect(self.screen, (0, 255, 0), (cell_left, cell_top, self.cell_size, self.cell_size))
+            elif self.maze[row, col] == 'G':  # Goal position
+                pygame.draw.rect(self.screen, (255, 0, 0), (cell_left, cell_top, self.cell_size, self.cell_size))
     
-              if np.array_equal(np.array(self.current_pos), np.array([row, col]).reshape(-1,1)):  # Agent position
-                  pygame.draw.rect(self.screen, (0, 0, 255), (cell_left, cell_top, self.cell_size, self.cell_size))
+            if np.array_equal(np.array(self.current_pos), np.array([row, col]).reshape(-1,1)):  # Agent position
+                pygame.draw.rect(self.screen, (0, 0, 255), (cell_left, cell_top, self.cell_size, self.cell_size))
     
           pygame.display.update()  # Update the display
