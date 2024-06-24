@@ -2,6 +2,7 @@ import gym
 from gym import spaces
 import numpy as np
 import pygame
+from typing import Optional, Union
 
 class MazeGameEnv(gym.Env):
     def __init__(self, maze, render_mode: Optional[str] = None):
